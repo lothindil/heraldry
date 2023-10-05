@@ -1,0 +1,15 @@
+html
+{
+    background-color:#1a202c;
+    color:#a0aec0;
+}
+flex-vertical
+{
+    display:flex;
+    flex-flow : column nowrap;
+}
+.flex-horizontal
+{
+    display:flex;
+    flex-flow : row nowrap;
+}
