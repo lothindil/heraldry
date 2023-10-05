@@ -7,13 +7,6 @@ use Illuminate\Http\Request;
 
 class MeublesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
 
     /**
      * Show the form for creating a new resource.
@@ -37,36 +30,6 @@ class MeublesController extends Controller
 
         return back();
     }
+    
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(meubles $meubles)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(meubles $meubles)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, meubles $meubles)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(meubles $meubles)
-    {
-        //
-    }
 }
