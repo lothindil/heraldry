@@ -14,7 +14,7 @@ class MeublesController extends Controller
     public function create()
     {
         //
-        return view('new-meuble-form');
+        return view('new-meuble-form',['meubles'=>Meuble::all()]);
     }
 
     /**
@@ -27,6 +27,7 @@ class MeublesController extends Controller
         $meuble->nom = $request -> nom;
         $meuble->fichier = $request -> fichier;
         $meuble -> save();
+        
 
         return back();
     }

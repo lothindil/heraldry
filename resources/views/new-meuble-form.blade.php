@@ -14,4 +14,9 @@
         <input type="text" name="nom" id="nom">
         <input type="submit" value="Envoyer !">
     </form>
+<ul>
+    @foreach($meubles as $meuble)
+        <li>{{$meuble->nom}}</li>
+
+    @endforeach
 @endsection
