@@ -13,6 +13,7 @@ class BlasonController extends Controller
     /**      */
     public function create_random()
     {
+        $aff_meuble=false;
         $couleurs=Couleur::all();
 
         $couleur_champs=$couleurs->random();
@@ -24,6 +25,7 @@ class BlasonController extends Controller
 
         if(mt_rand(0,1)==1)
         {
+            $aff_meuble=true;
             $meuble=Image::make(resource_path().'/images/meubles/fleche.png');
             $meuble->colorize($couleur_meuble->red_for_colo,$couleur_meuble->green_for_colo,$couleur_meuble->blue_for_colo, );
             $meuble->insert(resource_path().'/images/meubles/fleche-c.png');
@@ -34,7 +36,8 @@ class BlasonController extends Controller
 
         return view('crest',['couleur_champs'=>$couleur_champs, 
             'couleur_meuble'=>$couleur_meuble,
-            'blason'=>$img->encoded]);
+            'blason'=>$img->encoded,
+            'aff_meuble'=>$aff_meuble]);
     }
     /**
      * Display a listing of the resource.
