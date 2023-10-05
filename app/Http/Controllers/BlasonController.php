@@ -16,6 +16,7 @@ class BlasonController extends Controller
     {
         $couleur_meuble="";
         $couleur_champs="";
+        $meuble_objet=null;
 
         $aff_meuble=false;
         $couleurs=Couleur::all();
@@ -47,6 +48,7 @@ class BlasonController extends Controller
         return view('crest',['couleur_champs'=>$couleur_champs, 
             'couleur_meuble'=>$couleur_meuble,
             'blason'=>$img->encoded,
-            'aff_meuble'=>$aff_meuble]);
+            'aff_meuble'=>$aff_meuble,
+            'meuble'=>$meuble_objet]);
     }
 }
