@@ -18,7 +18,7 @@ class Meuble extends Model
 
    public function cadre(Couleur $couleur)
     {
-        $cadre=Image::make(resource_path().'/images/meubles/'.$this->fichier.'-c.png');
+        $cadre=Image::make(public_path().'/images/meubles/'.$this->fichier.'-c.png');
         if($couleur->hexadecimal=="#020202")
         {
             $cadre->colorize(20,20,20);

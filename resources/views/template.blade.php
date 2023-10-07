@@ -6,5 +6,7 @@
 </head>
 <body>
     @yield('contenu')
+    <script src="{{asset('js/jquery-3.7.1.min.js')}}"></script>
+    <script src="{{asset('js/app.js')}}"></script>
 </body>
 </html>

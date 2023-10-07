@@ -3,7 +3,7 @@ html
     background-color:#1a202c;
     color:#a0aec0;
 }
-flex-vertical
+.flex-vertical
 {
     display:flex;
     flex-flow : column nowrap;
@@ -12,4 +12,34 @@ flex-vertical
 {
     display:flex;
     flex-flow : row nowrap;
+}
+.flex-wrap
+{
+    flex-wrap: wrap;
+}
+.carre
+{
+    display:block;
+    min-height: 30px;
+    height:30px;
+    min-width:30px;
+    width:30px;
+    border: 3px solid #020202;
+    margin-right:5px;
+}
+.carre.choiced , .gdcarre.choiced
+{
+    border-color:#a0aec0;
+}
+
+.gdcarre
+{
+    display:block;
+    min-height: 80px;
+    height:80px;
+    min-width:80px;
+    width:80px;
+    background-color:#a0aec0;
+    border: 3px solid #020202;
+    margin-right:5px;
 }
