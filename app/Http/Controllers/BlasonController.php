@@ -60,5 +60,14 @@ class BlasonController extends Controller
         $meuble=Meuble::find($r->meuble);
         $couleur_champs=Couleur::find($r->couleur_champs);
         $couleur_meuble=Couleur::find($r->couleur_meuble);
+
+        $blason=new Blason;
+        $blason->generate_image($couleur_champs, $meuble, $couleur_meuble);
+        $blason->descriptif($couleur_champs, $meuble, $couleur_meuble);
+
+        return response()->json([
+            'description' => $blason->description,
+            'img' => $blason->image            
+        ]);
     }
 }
