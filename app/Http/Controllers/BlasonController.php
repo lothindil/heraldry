@@ -61,7 +61,13 @@ class BlasonController extends Controller
         $couleur_champs=Couleur::find($r->couleur_champs);
         $couleur_meuble=Couleur::find($r->couleur_meuble);
 
-        if($r->meuble!=0&&$r->couleur_meuble==0) // si le blason d'origine n'avait pas de meuble
+        if($r->meuble!=0&&$r->couleur_meuble==0) 
+            // si le blason d'origine n'avait pas de meuble
+        {
+            $couleur_meuble=Couleur::where('type','<>',$couleur_champs->type)->get()->random(); 
+        }
+        elseif($couleur_champs->type==$couleur_meuble->type) 
+            //si en changeant de couleur on enfreint les règles de couleurs
         {
             $couleur_meuble=Couleur::where('type','<>',$couleur_champs->type)->get()->random(); 
         }
