@@ -48,6 +48,15 @@ $("body").on("click",".c_champs", function(){
         success: function(data){
             $("#desc_blason").html(data.description);
             $("#blason").attr("src",data.img.encoded);
+            $(".c_champs").removeClass("choiced");
+            $(this).addClass("choiced");
+            $("input[name=couleur_champs]").val($(this).attr("data-id"));
+            if(data.couleur_meuble!=$("input[name=couleur_meuble]").val())
+            {
+                $("input[name=couleur_meuble]").val(data.couleur_meuble);
+                $(".c_meuble").removeClass("choiced");
+                $(".c_meuble[data-id="+data.couleur_meuble+"]").addClass("choiced");
+            }
         },
         error : function(error){
             alert("La requête s'est terminée en échec. Infos : " + JSON.stringify(error));

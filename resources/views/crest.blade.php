@@ -9,13 +9,10 @@
         <img id='blason' src='{{$blason->image}}' />
         <div class='flex-vertical'>
             <input type="hidden" name='couleur_champs' value="{{$couleur_champs_id }}">
-            @if($aff_meuble)
+            
             <input type="hidden" name='couleur_meuble' value="{{$couleur_meuble_id }}">
             <input type="hidden" name='meuble' value="{{$meuble_id }}">
-            @else
-            <input type="hidden" name='couleur_meuble' value="0">
-            <input type="hidden" name='meuble' value="0">
-            @endif
+
             <p>Couleur du champs :</p> 
             <div class='flex-horizontal'> 
             @foreach($couleurs as $c)
