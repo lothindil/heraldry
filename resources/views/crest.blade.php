@@ -3,11 +3,10 @@
     <h1>Blason aléatoire</h1>
 <div class='flex-vertical'>
     <div class='flex-vertical'>
-        <p>{{$blason->description}}
-        </p>
+        <p id="desc_blason">{{$blason->description}}</p>
     </div>
     <div class='flex-horizontal'>
-        <img src='{{$blason->image}}' />
+        <img id='blason' src='{{$blason->image}}' />
         <div class='flex-vertical'>
             <input type="hidden" name='couleur_champs' value="{{$couleur_champs_id }}">
             @if($aff_meuble)
@@ -32,7 +31,9 @@
             <p>Meuble : </p>
             <div class='flex-horizontal flex-wrap'> 
             @foreach($meubles as $m)
-                    <img class="gdcarre @if($m->id==$meuble_id) choiced @endif" src="images/meubles/{{$m->fichier}}-c.png" />
+                    <img class="meuble gdcarre @if($m->id==$meuble_id) choiced @endif" 
+                    data-id="{{$m->id}}"
+                    src="images/meubles/{{$m->fichier}}-c.png" />
             @endforeach
             </div>
         </div>
