@@ -19,13 +19,17 @@
             <p>Couleur du champs :</p> 
             <div class='flex-horizontal'> 
             @foreach($couleurs as $c)
-                <div class="carre @if($c->id==$couleur_champs_id) choiced @endif" style='background-color:{{$c->hexadecimal}}'>&nbsp;</div>
+                <div class="c_champs carre @if($c->id==$couleur_champs_id) choiced @endif" 
+                data-id="{{$c->id}}"
+                style='background-color:{{$c->hexadecimal}}'>&nbsp;</div>
             @endforeach
             </div>
-            <p>Couleur du meuble : {{$couleur_meuble_id}}</p>
+            <p>Couleur du meuble : </p>
             <div class='flex-horizontal'> 
             @foreach($couleurs as $c)
-                <div class="carre @if($c->id==$couleur_meuble_id) choiced @endif" style='background-color:{{$c->hexadecimal}}'>&nbsp;</div>
+                <div class="c_meuble carre @if($c->id==$couleur_meuble_id) choiced @endif" 
+                    data-id="{{$c->id}}"
+                    style='background-color:{{$c->hexadecimal}}'>&nbsp;</div>
             @endforeach
             </div>
             <p>Meuble : </p>
