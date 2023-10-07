@@ -60,16 +60,19 @@ class BlasonController extends Controller
         $meuble=Meuble::find($r->meuble);
         $couleur_champs=Couleur::find($r->couleur_champs);
         $couleur_meuble=Couleur::find($r->couleur_meuble);
+        $couleur_meuble_id=$r->couleur_meuble;
 
         if($r->meuble!=0&&$r->couleur_meuble==0) 
             // si le blason d'origine n'avait pas de meuble
         {
             $couleur_meuble=Couleur::where('type','<>',$couleur_champs->type)->get()->random(); 
+            $couleur_meuble_id=$couleur_meuble->id;
         }
-        elseif($couleur_champs->type==$couleur_meuble->type) 
+        elseif($r->couleur_meuble!=0&&$couleur_champs->type==$couleur_meuble->type) 
             //si en changeant de couleur on enfreint les règles de couleurs
         {
             $couleur_meuble=Couleur::where('type','<>',$couleur_champs->type)->get()->random(); 
+            $couleur_meuble_id=$couleur_meuble->id;
         }
 
         $blason=new Blason;
@@ -79,7 +82,7 @@ class BlasonController extends Controller
         return response()->json([
             'description' => $blason->description,
             'img' => $blason->image,
-            'couleur_meuble' =>$couleur_meuble->id          
+            'couleur_meuble' =>$couleur_meuble_id     
         ]);
     }
 }
