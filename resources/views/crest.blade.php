@@ -20,7 +20,7 @@
             <div class='flex-horizontal'> 
             @foreach($couleurs as $c)
                 <div class="c_champs carre @if($c->id==$couleur_champs_id) choiced @endif" 
-                data-id="{{$c->id}}"
+                data-id="{{$c->id}}" data-type="{{$c->type}}"
                 style='background-color:{{$c->hexadecimal}}'>&nbsp;</div>
             @endforeach
             </div>
@@ -28,7 +28,7 @@
             <div class='flex-horizontal'> 
             @foreach($couleurs as $c)
                 <div class="c_meuble carre @if($c->id==$couleur_meuble_id) choiced @endif" 
-                    data-id="{{$c->id}}"
+                    data-id="{{$c->id}}" data-type="{{$c->type}}"
                     style='background-color:{{$c->hexadecimal}}'>&nbsp;</div>
             @endforeach
             </div>

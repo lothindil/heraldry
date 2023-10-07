@@ -31,3 +31,26 @@ $("body").on("click",".meuble", function(){
         }
     })
 })
+$("body").on("click",".c_champs", function(){
+    console.log($("input[name=meuble]").val());
+    console.log($(this).attr("data-id"));
+    console.log($("input[name=couleur_meuble]").val());
+
+    $.ajax({
+        context: this,
+        url: "api/generate_blason",
+        method: "POST",
+        dataType : "json",
+        data:{"meuble":$("input[name=meuble]").val(), 
+            "couleur_champs":$(this).attr("data-id"),
+            "couleur_meuble":$("input[name=couleur_meuble]").val()
+        },
+        success: function(data){
+            $("#desc_blason").html(data.description);
+            $("#blason").attr("src",data.img.encoded);
+        },
+        error : function(error){
+            alert("La requête s'est terminée en échec. Infos : " + JSON.stringify(error));
+        }
+    })
+})
