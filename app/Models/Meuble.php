@@ -16,6 +16,11 @@ class Meuble extends Model
       'nom', 'fichier', 'genre'
    ];
 
+   public function attributs(): HasMany
+    {
+        return $this->hasMany(Attribut::class);
+    }
+
    public function cadre(Couleur $couleur)
     {
         $cadre=Image::make(public_path().'/images/meubles/'.$this->fichier.'-c.png');
