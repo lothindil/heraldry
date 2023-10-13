@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Meuble;
+use App\Models\Attribut;
 use Illuminate\Http\Request;
 
 class MeublesController extends Controller
@@ -27,8 +28,19 @@ class MeublesController extends Controller
         $meuble->nom = $request -> nom;
         $meuble->fichier = $request -> fichier;
         if($request->has('genre')){$meuble->genre='F';}else{$meuble->genre='M';}
+
         $meuble -> save();
+
+        $attributs = array();
+        foreach($request->nomAtt as $nom)
+        {
+            if($nom!='')
+            {
+                $attributs[]=['nom'=>$nom];
+            }            
+        }
         
+        $meuble->attributs()->createMany($attributs);
 
         return back();
     }

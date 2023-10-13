@@ -12,7 +12,7 @@ class Attribut extends Model
        'nom'
     ];
 
-    public function meuble(): BelongsTo
+    public function meuble()
     {
         return $this->belongsTo(Meuble::class);
     }

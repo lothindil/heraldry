@@ -16,7 +16,7 @@ class Meuble extends Model
       'nom', 'fichier', 'genre'
    ];
 
-   public function attributs(): HasMany
+   public function attributs()
     {
         return $this->hasMany(Attribut::class);
     }

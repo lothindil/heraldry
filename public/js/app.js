@@ -103,3 +103,16 @@ $("body").on("click",".c_meuble", function(){
         }
     })
 })
+$("body").on("click",'#add_attr', function(){
+    var $tr = $(".attribut_form:last-of-type").clone(); 
+    $tr.appendTo("#attributs_form");
+    console.log($(".attribut_form:last-of-type").attr('data-num'));
+    var numero = parseInt($(".attribut_form:last-of-type").attr('data-num'))+1;
+    $(".attribut_form:last-of-type").attr('data-num',numero);
+    $(".attribut_form:last-of-type").attr('id','attribut['+numero+']');
+    $(".attribut_form:last-of-type span").text(numero);
+    $(".attribut_form:last-of-type input").attr('name', 'nomAtt['+numero+']');
+    $(".attribut_form:last-of-type input").attr('id', 'nomAtt['+numero+']');
+    $(".attribut_form:last-of-type input").val('');
+    $(".attribut_form:last-of-type label").attr('for', 'nomAtt['+numero+']');
+});
