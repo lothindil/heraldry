@@ -70,6 +70,19 @@ class MeublesController extends Controller
         if($request->has('genre')){$meuble->genre='F';}else{$meuble->genre='M';}
         $meuble -> save();
 
+        $attributs = array();
+        foreach($request->nomAtt as $k=>$nom)
+        {
+            if($nom!='')
+            {
+                if($request->idAtt[$k]==''){$id=null;}
+                else{$id=$request->idAtt[$k];}
+
+                $attributs[]=['id'=>$id,'meuble_id'=>$meuble->id,'nom'=>$nom];
+            }            
+        }
+        $meuble->attributs()->upsert($attributs, ['id']);
+
         return $this->edit($request);
     }
 }

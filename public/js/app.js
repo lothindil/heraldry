@@ -111,8 +111,10 @@ $("body").on("click",'#add_attr', function(){
     $(".attribut_form:last-of-type").attr('data-num',numero);
     $(".attribut_form:last-of-type").attr('id','attribut['+numero+']');
     $(".attribut_form:last-of-type span").text(numero);
-    $(".attribut_form:last-of-type input").attr('name', 'nomAtt['+numero+']');
-    $(".attribut_form:last-of-type input").attr('id', 'nomAtt['+numero+']');
+    $(".attribut_form:last-of-type input[type=text]").attr('name', 'nomAtt['+numero+']');
+    $(".attribut_form:last-of-type input[type=text]").attr('id', 'nomAtt['+numero+']');
+    $(".attribut_form:last-of-type input[type=hidden]").attr('name', 'idAtt['+numero+']');
+    $(".attribut_form:last-of-type input[type=hidden]").attr('id', 'idAtt['+numero+']');
     $(".attribut_form:last-of-type input").val('');
     $(".attribut_form:last-of-type label").attr('for', 'nomAtt['+numero+']');
 });
