@@ -13,7 +13,7 @@ class Meuble extends Model
    protected $table = 'meubles';
 
    protected $fillable = [
-      'nom', 'fichier'
+      'nom', 'fichier', 'genre'
    ];
 
    public function cadre(Couleur $couleur)

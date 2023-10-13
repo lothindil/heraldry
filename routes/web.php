@@ -24,3 +24,6 @@ Route::post('admin_access', [RegisterController::class, 'admin_login']);
 Route::get('new_meuble', [MeublesController::class, 'create'])->name('new_meuble')->middleware('auth');
 Route::post('new_meuble', [MeublesController::class, 'store'])->middleware('auth');
 
+Route::get('upd_meuble/{id?}', [MeublesController::class, 'edit'])->name('upd_meuble')->middleware('auth');
+Route::put('upd_meuble', [MeublesController::class, 'update'])->middleware('auth');
+

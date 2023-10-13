@@ -12,6 +12,8 @@
         <input type="text" name="fichier" id="fichier">
         <label for="nom">Nom du meuble : </label>
         <input type="text" name="nom" id="nom">
+        <label for="genre">Féminin ? </label>
+        <x-checkbox name="genre"/>
         <input type="submit" value="Envoyer !">
     </form>
 <ul>

@@ -41,7 +41,19 @@ class Blason extends Model
         $retour.=$couleur_champs->nom." (".$couleur_champs->hexadecimal.")";
         if($meuble != null)
         {
-            $retour.=" au ".$meuble->nom." ";
+            if($this->start_by_voyelle($meuble->nom))
+            {
+                $retour.=" à l'";
+            }
+            elseif($meuble->genre=="M")
+            {
+                $retour.=" au ";
+            }
+            else
+            {
+                $retour .=" à la ";
+            }
+            $retour.=$meuble->nom." ";
             $retour.= $this->start_by_voyelle($couleur_meuble->nom)?"d'":'de ';
             $retour.=$couleur_meuble->nom." (".$couleur_meuble->hexadecimal.")";
         }
@@ -54,7 +66,7 @@ class Blason extends Model
     }
     private function start_by_voyelle($string)
     {
-        $voyelle=['a','e','i','o','u','y'];
+        $voyelle=['a','e','i','o','u','y','h'];
 
         return in_array($string[0],$voyelle);
     }

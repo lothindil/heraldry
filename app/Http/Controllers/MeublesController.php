@@ -26,11 +26,38 @@ class MeublesController extends Controller
         $meuble = new Meuble;
         $meuble->nom = $request -> nom;
         $meuble->fichier = $request -> fichier;
+        if($request->has('genre')){$meuble->genre='F';}else{$meuble->genre='M';}
         $meuble -> save();
         
 
         return back();
     }
     
+    public function edit(Request $request)
+    {
+        if($request->id!=null)
+        {
+            $meuble=Meuble::find($request->id);
+        }
+        else
+        {
+            $meuble=Meuble::find(1);
+        }
+        $meuble->genreChk='';
+        if($meuble->genre=="F"){$meuble->genreChk='checked';}
 
+
+        return view('upd-meuble-form',['meuble'=>$meuble,'meubles'=>Meuble::all()->sortBy(['nom','asc']) ]);
+    }
+    public function update(Request $request)
+    {
+        
+        $meuble =Meuble::find($request->id);
+        $meuble->nom = $request -> nom;
+        $meuble->fichier = $request -> fichier;
+        if($request->has('genre')){$meuble->genre='F';}else{$meuble->genre='M';}
+        $meuble -> save();
+
+        return $this->edit($request);
+    }
 }
