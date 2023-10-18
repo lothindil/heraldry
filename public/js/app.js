@@ -2,11 +2,7 @@ const existant_crest_att=function()
 {
     var attr={};
     $(".c_att.choiced").each(function(){
-        if($(this).attr("data-color")!=0)
-        {
-            attr[$(this).attr("data-attr")]=$(this).attr("data-color");
-        }
-        console.log("id attr : "+$(this).attr("data-attr")+" - color : "+$(this).attr("data-color"));
+        attr[$(this).attr("data-attr")]=$(this).attr("data-color");
     })
     return attr;
 }
@@ -39,6 +35,15 @@ $("body").on("click",".meuble", function(){
                 $(".c_meuble").removeClass("choiced");
                 $(".c_meuble[data-id="+data.couleur_meuble+"]").addClass("choiced");
             }
+
+            $("#color_attributes").empty();
+            $.each(data.all_attributs,function(id,nom){
+                $("#color_sample").clone(true).appendTo("#color_attributes");
+                $("#color_attributes #color_sample .c_att").attr("data-attr",id);
+                $("#color_attributes #color_sample p").html(nom+" :");
+                $("#color_attributes #color_sample").removeAttr("style");
+                $("#color_attributes #color_sample").removeAttr("id");
+            });
         },
         error : function(error){
             alert("La requête s'est terminée en échec. Infos : " + JSON.stringify(error));
@@ -86,7 +91,6 @@ $("body").on("click",".c_meuble", function(){
     console.log($("input[name=meuble]").val());
     console.log($("input[name=couleur_champs]").val());
     console.log($(this).attr("data-id"));
-
 
     if($("input[name=meuble]").val()==0)
     {

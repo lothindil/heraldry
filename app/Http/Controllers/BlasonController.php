@@ -93,11 +93,11 @@ class BlasonController extends Controller
         $all_attributs=$meuble->attributs;
         $attributs=null;
         $couleurs_attributs=[];
+        $all_attributs_array=[];
 
         if($r->meuble!=0&&$r->couleur_meuble==0) 
             // si le blason d'origine n'avait pas de meuble
         {
-            dd($r->meuble,$r->couleur_meuble);
             $couleur_meuble=Couleur::where('type','<>',$couleur_champs->type)->get()->random(); 
             $couleur_meuble_id=$couleur_meuble->id;
         }
@@ -106,7 +106,6 @@ class BlasonController extends Controller
         {
             if($r->change=="couleur_champs")
             {
-                dd(2);
                 $couleur_meuble=Couleur::where('type','<>',$couleur_champs->type)->get()->random(); 
                 $couleur_meuble_id=$couleur_meuble->id;
             }
@@ -123,7 +122,10 @@ class BlasonController extends Controller
             $attributs=Array();
             foreach($r->attributs as $attribut=>$couleur)
             {
-                
+                if($couleur==0)
+                {
+                    continue;
+                }
                 if($couleur==$couleur_meuble_id)
                 {
                     $new_color=$couleurs->random();
@@ -134,8 +136,14 @@ class BlasonController extends Controller
                 {
                     $attributs[]=['attribut'=>$all_attributs->where('id','=',$attribut)->first(),'couleur'=>$couleurs->where('id','=',$couleur)->first()];
                 }
+                
             }
         }
+        foreach($all_attributs as $a)
+        {
+            $all_attributs_array[$a->id]=$a->nom;
+        }
+        
 
         $blason=new Blason;
         $blason->generate_image($couleur_champs, $meuble, $couleur_meuble,$attributs);
@@ -146,7 +154,8 @@ class BlasonController extends Controller
             'img' => $blason->image,
             'couleur_meuble' =>$couleur_meuble_id,
             'couleur_champs' =>$couleur_champs->id,
-            'attributs' => $couleurs_attributs 
+            'attributs' => $couleurs_attributs,
+            'all_attributs' => $all_attributs_array
         ]);
     }
-}
+};

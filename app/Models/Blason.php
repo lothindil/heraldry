@@ -53,7 +53,7 @@ class Blason extends Model
     public function descriptif(Couleur $couleur_champs, ?Meuble $meuble, ?Couleur $couleur_meuble, ?Array $attributs)
     {
         $retour = $this->start_by_voyelle($couleur_champs->nom)?"D'":'De ';
-        $retour.=$couleur_champs->nom." (".$couleur_champs->hexadecimal.")";
+        $retour.=$couleur_champs->nom." ";
         if($meuble != null)
         {
             if($this->start_by_voyelle($meuble->nom))
@@ -70,16 +70,17 @@ class Blason extends Model
             }
             $retour.=$meuble->nom." ";
             $retour.= $this->start_by_voyelle($couleur_meuble->nom)?"d'":'de ';
-            $retour.=$couleur_meuble->nom." (".$couleur_meuble->hexadecimal.")";
+            $retour.=$couleur_meuble->nom."";
             if($attributs != null)
             {
                 $i=0;
                 foreach($attributs as $ajout)
                 {
                     if(++$i==count($attributs)&&$i!=1){$retour.=" et";}
+                    elseif($i!=1){$retour.=",";}
                     $retour.=" ".$ajout['attribut']->nom." ";
                     $retour.= $this->start_by_voyelle($ajout['couleur']->nom)?"d'":'de ';
-                    $retour.=$ajout['couleur']->nom." (".$ajout['couleur']->hexadecimal.")";
+                    $retour.=$ajout['couleur']->nom."";
                 }
             }
         }

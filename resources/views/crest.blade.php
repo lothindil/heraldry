@@ -39,7 +39,19 @@
             </div>
         </div>
     </div>
-    <div class="flex-vertical">
+    <div class="flex-horizontal" id="color_sample" style="display:none">
+        <p id="name_sample">--- :</p>
+                 @foreach($couleurs as $c)
+                <div class="c_att carre" 
+                data-color="{{$c->id}}" data-attr=""
+                style='background-color:{{$c->hexadecimal}}'>&nbsp;</div>
+                
+            @endforeach()
+            <div class="c_att carre"
+             data-color="0" data-attr="">&nbsp;</div>
+            </div>
+    </div>
+    <div class="flex-vertical" id="color_attributes">
         @foreach($all_attributs as $a)
             @php
                 $cAtt=0;
