@@ -87,10 +87,12 @@ $("body").on("click",".c_meuble", function(){
     console.log($("input[name=couleur_champs]").val());
     console.log($(this).attr("data-id"));
 
+
     if($("input[name=meuble]").val()==0)
     {
         return false;
     }
+    var attr=existant_crest_att();
 
     $.ajax({
         context: this,
@@ -100,7 +102,8 @@ $("body").on("click",".c_meuble", function(){
         data:{"meuble":$("input[name=meuble]").val(), 
             "couleur_meuble":$(this).attr("data-id"),
             "couleur_champs":$("input[name=couleur_champs]").val(),
-            "change":"couleur_meuble"
+            "change":"couleur_meuble",
+            "attributs":attr
         },
         success: function(data){
             $("#desc_blason").html(data.description);
@@ -114,6 +117,12 @@ $("body").on("click",".c_meuble", function(){
                 $(".c_champs").removeClass("choiced");
                 $(".c_champs[data-id="+data.couleur_champs+"]").addClass("choiced");
             }
+            var attributs= data.attributs;
+            console.log(attributs);
+            $.each(attributs,function(attribute,couleur){
+                $("[data-attr="+attribute+"]").removeClass("choiced");
+                $("[data-attr="+attribute+"][data-color="+couleur+"]").addClass("choiced");
+            })
         },
         error : function(error){
             alert("La requête s'est terminée en échec. Infos : " + JSON.stringify(error));

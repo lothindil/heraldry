@@ -92,6 +92,7 @@ class BlasonController extends Controller
         $couleurs=Couleur::all();
         $all_attributs=$meuble->attributs;
         $attributs=null;
+        $couleurs_attributs=[];
 
         if($r->meuble!=0&&$r->couleur_meuble==0) 
             // si le blason d'origine n'avait pas de meuble
@@ -116,10 +117,21 @@ class BlasonController extends Controller
         }
         if($r->attributs!=null&&count($r->attributs)>0)
         {
+            $couleurs_attributs=$r->attributs;
             $attributs=Array();
             foreach($r->attributs as $attribut=>$couleur)
             {
-                $attributs[]=['attribut'=>$all_attributs->where('id','=',$attribut)->first(),'couleur'=>$couleurs->where('id','=',$couleur)->first()];
+                
+                if($couleur==$couleur_meuble_id)
+                {
+                    $new_color=$couleurs->random();
+                    $attributs[]=['attribut'=>$all_attributs->where('id','=',$attribut)->first(),'couleur'=>$new_color];
+                    $couleurs_attributs[$attribut]=$new_color->id;
+                }
+                else
+                {
+                    $attributs[]=['attribut'=>$all_attributs->where('id','=',$attribut)->first(),'couleur'=>$couleurs->where('id','=',$couleur)->first()];
+                }
             }
         }
 
@@ -131,7 +143,8 @@ class BlasonController extends Controller
             'description' => $blason->description,
             'img' => $blason->image,
             'couleur_meuble' =>$couleur_meuble_id,
-            'couleur_champs' =>$couleur_champs->id   
+            'couleur_champs' =>$couleur_champs->id,
+            'attributs' => $couleurs_attributs 
         ]);
     }
 }
