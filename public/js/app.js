@@ -1,7 +1,20 @@
+const existant_crest_att=function()
+{
+    var attr={};
+    $(".c_att.choiced").each(function(){
+        if($(this).attr("data-color")!=0)
+        {
+            attr[$(this).attr("data-attr")]=$(this).attr("data-color");
+        }
+        console.log("id attr : "+$(this).attr("data-attr")+" - color : "+$(this).attr("data-color"));
+    })
+    return attr;
+}
 $("body").on("click",".meuble", function(){
     console.log($(this).attr("data-id"));
     console.log($("input[name=couleur_champs]").val());
     console.log($("input[name=couleur_meuble]").val());
+    
 
     $.ajax({
         context: this,
@@ -36,6 +49,9 @@ $("body").on("click",".c_champs", function(){
     console.log($("input[name=meuble]").val());
     console.log($(this).attr("data-id"));
     console.log($("input[name=couleur_meuble]").val());
+    
+    var attr=existant_crest_att();
+    console.log(attr);
 
     $.ajax({
         context: this,
@@ -45,7 +61,8 @@ $("body").on("click",".c_champs", function(){
         data:{"meuble":$("input[name=meuble]").val(), 
             "couleur_champs":$(this).attr("data-id"),
             "couleur_meuble":$("input[name=couleur_meuble]").val(),
-            "change":"couleur_champs"
+            "change":"couleur_champs",
+            "attributs":attr
         },
         success: function(data){
             $("#desc_blason").html(data.description);

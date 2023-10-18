@@ -12,6 +12,8 @@ class Attribut extends Model
        'nom'
     ];
 
+    protected $appends=['fichier'];
+
     public function meuble()
     {
         return $this->belongsTo(Meuble::class);
@@ -23,6 +25,11 @@ class Attribut extends Model
         return substr($fichier,0,3);
     }
 
+    public function getFichier()
+    {
+        $fichier = $this->clean_accent($this->nom);
+        return substr($fichier,0,3);
+    }
     
     private function clean_accent($string)
     {

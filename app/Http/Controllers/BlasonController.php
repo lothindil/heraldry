@@ -30,7 +30,7 @@ class BlasonController extends Controller
             $aff_meuble=true;
             $meuble_objet=$meubles->random();
             $couleur_meuble=$couleurs->where('type','<>',$couleur_champs->type)->random();
-
+            $attributs=Array();
             //si y a des attributs, aléatoire pour savoir si on en colore
             if(mt_rand(0,9)<5&&$meuble_objet->attributs->count()!=0) 
             {
@@ -38,10 +38,11 @@ class BlasonController extends Controller
                 $shuffled = $meuble_objet->attributs->shuffle();
                 $nb_attributs = mt_rand(1,$meuble_objet->attributs->count());
                 $i=1;
-                $attributs=Array();
+                
                 foreach($shuffled as $item)
                 {
                     $attributs[]=['attribut'=>$item,'couleur'=>$cAtt->random()];
+                    
                     if(++$i>$nb_attributs)
                     {
                         break;
@@ -64,11 +65,19 @@ class BlasonController extends Controller
         {
             $var_retour['couleur_meuble_id']=$couleur_meuble->id;
             $var_retour['meuble_id']=$meuble_objet->id;
+            $var_retour['all_attributs']=$meuble_objet->attributs->all();
+            $var_retour['attributs']=[];
+            foreach($attributs as $a)
+            {
+                $var_retour['attributs'][$a['attribut']->id]=$a['couleur']->id;
+            }
         }
         else
         {
             $var_retour['couleur_meuble_id']=0;
             $var_retour['meuble_id']=0;
+            $var_retour['all_attributs']=[];
+            $var_retour['attributs']=[];
         }
         return view('crest',$var_retour);
     }
@@ -80,6 +89,9 @@ class BlasonController extends Controller
         $couleur_champs=Couleur::find($r->couleur_champs);
         $couleur_meuble=Couleur::find($r->couleur_meuble);
         $couleur_meuble_id=$r->couleur_meuble;
+        $couleurs=Couleur::all();
+        $all_attributs=$meuble->attributs;
+        $attributs=null;
 
         if($r->meuble!=0&&$r->couleur_meuble==0) 
             // si le blason d'origine n'avait pas de meuble
@@ -102,10 +114,18 @@ class BlasonController extends Controller
             }
             
         }
+        if($r->attributs!=null&&count($r->attributs)>0)
+        {
+            $attributs=Array();
+            foreach($r->attributs as $attribut=>$couleur)
+            {
+                $attributs[]=['attribut'=>$all_attributs->where('id','=',$attribut)->first(),'couleur'=>$couleurs->where('id','=',$couleur)->first()];
+            }
+        }
 
         $blason=new Blason;
-        $blason->generate_image($couleur_champs, $meuble, $couleur_meuble);
-        $blason->descriptif($couleur_champs, $meuble, $couleur_meuble);
+        $blason->generate_image($couleur_champs, $meuble, $couleur_meuble,$attributs);
+        $blason->descriptif($couleur_champs, $meuble, $couleur_meuble,$attributs);
 
         return response()->json([
             'description' => $blason->description,

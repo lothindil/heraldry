@@ -31,10 +31,11 @@ class Blason extends Model
                 foreach($attributs as $ajout)
                 {
                     $attribut = $ajout['attribut'];
+                   // dd($attribut);
                     $c = $ajout['couleur'];
-                    $img_att=Image::make(public_path().'/images/meubles/'.$meuble->fichier.'-'.$attribut->fichier.'.png');
-                    $img_att->colorize($c->red_for_colo,$c->green_for_colo,$c->blue_for_colo);
-                    $img_meuble->insert($img_att);
+                        $img_att=Image::make(public_path().'/images/meubles/'.$meuble->fichier.'-'.$attribut->fichier.'.png');
+                        $img_att->colorize($c->red_for_colo,$c->green_for_colo,$c->blue_for_colo);
+                        $img_meuble->insert($img_att);
                 }
             }
 

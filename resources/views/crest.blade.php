@@ -39,6 +39,28 @@
             </div>
         </div>
     </div>
+    <div class="flex-vertical">
+        @foreach($all_attributs as $a)
+            @php
+                $cAtt=0;
+                if(array_key_exists($a->id,$attributs))
+                {
+                    $cAtt=$attributs[$a->id];
+                }
+            @endphp
+            <div class="flex-horizontal">
+                <p>{{$a->nom}} :</p>
+                 @foreach($couleurs as $c)
+                <div class="c_att carre @if($c->id==$cAtt) choiced @endif" 
+                data-color="{{$c->id}}" data-attr="{{$a->id}}"
+                style='background-color:{{$c->hexadecimal}}'>&nbsp;</div>
+                
+            @endforeach()
+            <div class="c_att carre @if($cAtt==0) choiced @endif"
+             data-color="0" data-attr="{{$a->id}}">&nbsp;</div>
+            </div>
+        @endforeach
+    </div>
 </div>
     
 @endsection
