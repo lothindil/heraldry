@@ -97,6 +97,7 @@ class BlasonController extends Controller
         if($r->meuble!=0&&$r->couleur_meuble==0) 
             // si le blason d'origine n'avait pas de meuble
         {
+            dd($r->meuble,$r->couleur_meuble);
             $couleur_meuble=Couleur::where('type','<>',$couleur_champs->type)->get()->random(); 
             $couleur_meuble_id=$couleur_meuble->id;
         }
@@ -105,6 +106,7 @@ class BlasonController extends Controller
         {
             if($r->change=="couleur_champs")
             {
+                dd(2);
                 $couleur_meuble=Couleur::where('type','<>',$couleur_champs->type)->get()->random(); 
                 $couleur_meuble_id=$couleur_meuble->id;
             }

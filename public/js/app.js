@@ -129,6 +129,49 @@ $("body").on("click",".c_meuble", function(){
         }
     })
 })
+$("body").on("click",".c_att", function(){
+    if($("input[name=meuble]").val()==0)
+    {
+        return false;
+    }
+    var attr=existant_crest_att();
+    attr[$(this).attr("data-attr")]=$(this).attr("data-color");
+    $.ajax({
+        context: this,
+        url: "api/generate_blason",
+        method: "POST",
+        dataType : "json",
+        data:{"meuble":$("input[name=meuble]").val(), 
+            "couleur_meuble":$("input[name=couleur_meuble]").val(),
+            "couleur_champs":$("input[name=couleur_champs]").val(),
+            "change":"couleur_attr",
+            "attributs":attr
+        },
+        success: function(data){
+            $("#desc_blason").html(data.description);
+            $("#blason").attr("src",data.img.encoded);
+            $("input[name=couleur_meuble]").val(data.couleur_meuble);
+            $(".c_meuble").removeClass("choiced");
+            $(".c_meuble[data-id="+data.couleur_meuble+"]").addClass("choiced");
+            if(data.couleur_champs!=$("input[name=couleur_champs]").val())
+            {
+                $("input[name=couleur_champs]").val(data.couleur_champs);
+                $(".c_champs").removeClass("choiced");
+                $(".c_champs[data-id="+data.couleur_champs+"]").addClass("choiced");
+            }
+            var attributs= data.attributs;
+            console.log(attributs);
+            $.each(attributs,function(attribute,couleur){
+                $("[data-attr="+attribute+"]").removeClass("choiced");
+                $("[data-attr="+attribute+"][data-color="+couleur+"]").addClass("choiced");
+            })
+        },
+        error : function(error){
+            alert("La requête s'est terminée en échec. Infos : " + JSON.stringify(error));
+        }
+    })
+});
+
 $("body").on("click",'#add_attr', function(){
     var $tr = $(".attribut_form:last-of-type").clone(); 
     $tr.appendTo("#attributs_form");
