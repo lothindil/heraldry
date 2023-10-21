@@ -40,13 +40,16 @@ class Blason extends Model
             }
 
             $cadre=$meuble->cadre($couleur_meuble);
-            
-            $img_meuble->insert($cadre);
-            $img->insert($img_meuble);
+            $vieux=$meuble->vieillissement($couleur_champs);
 
+            $img_meuble->insert($cadre);
+            
+            $img->insert($img_meuble);
+            $img->insert($vieux);
 
         }
-        $this->image=$img->resize(512,512)->encode('data-url');
+        //$img=$img->resize(512,512);
+        $this->image=$img->encode('data-url');
         return $this->image;
     }
 

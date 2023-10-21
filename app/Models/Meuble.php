@@ -30,4 +30,17 @@ class Meuble extends Model
         }
         return $cadre;
     }
+    public function vieillissement(Couleur $couleur)
+    {
+        $vieux=Image::make(public_path().'/images/champs/vieux.png');
+        if($couleur->hexadecimal=="#020202")
+        {
+            $vieux->colorize(10,10,10);
+        }
+        elseif($couleur->hexadecimal=="#a41619")
+        {
+            $vieux->colorize(-15,-10,-5);
+        }
+        return $vieux;
+    }
 }

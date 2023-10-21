@@ -7,11 +7,6 @@ const existant_crest_att=function()
     return attr;
 }
 $("body").on("click",".meuble", function(){
-    console.log($(this).attr("data-id"));
-    console.log($("input[name=couleur_champs]").val());
-    console.log($("input[name=couleur_meuble]").val());
-    
-
     $.ajax({
         context: this,
         url: "api/generate_blason",
@@ -28,19 +23,13 @@ $("body").on("click",".meuble", function(){
             $(".meuble").removeClass("choiced");
             $(this).addClass("choiced");
             $("input[name=meuble]").val($(this).attr("data-id"));
-            
-            if($("input[name=couleur_meuble]").val()!=data.couleur_meuble)
-            {
-                $("input[name=couleur_meuble]").val(data.couleur_meuble);
-                $(".c_meuble").removeClass("choiced");
-                $(".c_meuble[data-id="+data.couleur_meuble+"]").addClass("choiced");
-            }
+            $("#icon_meuble").attr("src",data.meuble);
 
             $("#color_attributes").empty();
-            $.each(data.all_attributs,function(id,nom){
+            $.each(data.all_attributs,function(id,src){
                 $("#color_sample").clone(true).appendTo("#color_attributes");
                 $("#color_attributes #color_sample .c_att").attr("data-attr",id);
-                $("#color_attributes #color_sample p").html(nom+" :");
+                $("#color_attributes #color_sample img").attr('src',src);
                 $("#color_attributes #color_sample").removeAttr("style");
                 $("#color_attributes #color_sample").removeAttr("id");
             });
@@ -51,12 +40,8 @@ $("body").on("click",".meuble", function(){
     })
 })
 $("body").on("click",".c_champs", function(){
-    console.log($("input[name=meuble]").val());
-    console.log($(this).attr("data-id"));
-    console.log($("input[name=couleur_meuble]").val());
-    
+  
     var attr=existant_crest_att();
-    console.log(attr);
 
     $.ajax({
         context: this,

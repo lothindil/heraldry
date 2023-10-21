@@ -65,6 +65,7 @@ class BlasonController extends Controller
         {
             $var_retour['couleur_meuble_id']=$couleur_meuble->id;
             $var_retour['meuble_id']=$meuble_objet->id;
+            $var_retour['meuble_fichier']=$meuble_objet->fichier;
             $var_retour['all_attributs']=$meuble_objet->attributs->all();
             $var_retour['attributs']=[];
             foreach($attributs as $a)
@@ -141,7 +142,7 @@ class BlasonController extends Controller
         }
         foreach($all_attributs as $a)
         {
-            $all_attributs_array[$a->id]=$a->nom;
+            $all_attributs_array[$a->id]='/images/meubles/'.$meuble->fichier.'-'.$a->fichier.'.png';
         }
         
 
@@ -154,6 +155,7 @@ class BlasonController extends Controller
             'img' => $blason->image,
             'couleur_meuble' =>$couleur_meuble_id,
             'couleur_champs' =>$couleur_champs->id,
+            'meuble'=>'/images/meubles/'.$meuble->fichier.".png",
             'attributs' => $couleurs_attributs,
             'all_attributs' => $all_attributs_array
         ]);
