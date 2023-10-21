@@ -42,6 +42,7 @@ html
     background-color:#a0aec0;
     border: 3px solid #020202;
     margin-right:5px;
+    border-radius:10% 10% 50% 50%;
 }
 #blason{
     height:650px;
@@ -56,6 +57,7 @@ html
     max-width:var(--i);
     height:var(--i);
     max-height:var(--i);
+    border-radius:10% 10% 50% 50%;
 }
 
 .roue_color
@@ -102,8 +104,6 @@ html
 }
 .roue_color > div:nth-child(9){
     transform: translate(calc(var(--a)*-0.95),calc(var(--a)*-0.31));
-    --ax:calc(var(--a)*-0.95);
-    --ay:calc(var(--a)*-0.31);
 }
 .roue_color > div:nth-child(10){
     transform: translate(calc(var(--a)*-0.95),calc(var(--a)*0.31));
@@ -111,15 +111,17 @@ html
 .roue_color > div:nth-child(11){
     transform: translate(calc(var(--a)*-0.59),calc(var(--a)*0.81));
 }
+
 .roue_color > div:nth-child(12){
-    transform: translate(calc(var(--b)*0.87),calc(var(--b)*0.50));
+    transform: translate(calc(var(--b)*0.87),calc(var(--b)*-0.50));
 }
 .roue_color > div:nth-child(13){
-    transform: translate(calc(var(--b)*0),calc(var(--b)*-1));
+    transform: translate(calc(var(--b)*0),calc(var(--b)*1));
 }
 .roue_color > div:nth-child(14){
-    transform: translate(calc(var(--b)*-0.87),calc(var(--b)*0.50));
+    transform: translate(calc(var(--b)*-0.87),calc(var(--b)*-0.50));
 }
+
 .roue_color_empty > div:nth-child(12){
     transform: translate(calc(var(--b)*0.71),calc(var(--b)*0.71));
 }
@@ -149,18 +151,21 @@ html
     display:flex;
     flex-flow: row nowrap;
     justify-content: center;
+    margin-top:-45px;
 }
 #flex_champs
 {
     display:flex;
     order:-1;
     z-index:10;
-    margin-right:-100px;
+    margin-right:-35px;
+    margin-top:-15px
 }
 #flex_meuble{
     display:flex;
     z-index:10;
-    margin-left:-130px;
+    margin-left:-75px;
+    margin-top:-15px;
 }
 #color_attributes{
     display:flex;
