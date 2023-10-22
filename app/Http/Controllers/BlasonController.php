@@ -21,7 +21,7 @@ class BlasonController extends Controller
 
         $aff_meuble=false;
         $couleurs=Couleur::all();
-        $meubles=Meuble::all();
+        $meubles=Meuble::all()->where('free','=','1');
 
         $couleur_champs=$couleurs->random();
 

@@ -15,7 +15,7 @@ class MeublesController extends Controller
     public function create()
     {
         //
-        return view('new-meuble-form',['meubles'=>Meuble::all()]);
+        return view('new-meuble-form',['meubles'=>Meuble::all()->sortBy(['fichier','asc'])]);
     }
 
     /**
