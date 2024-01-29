@@ -15,14 +15,22 @@ class BlasonController extends Controller
     {
         $couleur_meuble=null;
         $couleur_champs=null;
+        $champs_secondaire=null;
+        $couleur_champs2=null;
         $meuble_objet=null;
         $attributs=null;
 
         $aff_meuble=false;
         $couleurs=Couleur::all();
-        $meubles=Meuble::all()->where('free','=','1');
+       // $meubles=Meuble::all()->where('free','=','1');
+       $meubles=Meuble::all();
 
         $couleur_champs=$couleurs->random();
+        if(mt_rand(0,1)==1)
+        {
+            $champs_secondaire="parti";
+            $couleur_champs2=$couleurs->random();
+        }
 
         if(mt_rand(0,$meubles->count())!=0)
         {
@@ -51,8 +59,8 @@ class BlasonController extends Controller
         }
 
         $blason=new Blason;
-        $blason->generate_image($couleur_champs, $meuble_objet, $couleur_meuble, $attributs);
-        $blason->descriptif($couleur_champs, $meuble_objet, $couleur_meuble, $attributs);
+        $blason->generate_image($couleur_champs, $champs_secondaire,$couleur_champs2, $meuble_objet, $couleur_meuble, $attributs);
+        $blason->descriptif($couleur_champs, $champs_secondaire,$couleur_champs2, $meuble_objet, $couleur_meuble, $attributs);
 
         $var_retour=['couleur_champs_id'=>$couleur_champs->id, 
         'blason'=>$blason,
