@@ -15,7 +15,9 @@ use App\Http\Controllers\Auth\RegisterController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+Route::get('/greeting', function () {
+    return 'Hello World';
+});
 Route::get('/', [BlasonController::class, 'create_random'])->name('welcome');
 
 Route::get('admin_access', [RegisterController::class, 'admin_access']);

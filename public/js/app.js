@@ -19,7 +19,7 @@ $("body").on("click",".meuble", function(){
         },
         success: function(data){
             $("#desc_blason").html(data.description);
-            $("#blason").attr("src",data.img.encoded);
+            $("#blason").attr("src",data.img);
             $(".meuble").removeClass("choiced");
             $(this).addClass("choiced");
             $("input[name=meuble]").val($(this).attr("data-id"));
@@ -56,7 +56,7 @@ $("body").on("click",".c_champs", function(){
         },
         success: function(data){
             $("#desc_blason").html(data.description);
-            $("#blason").attr("src",data.img.encoded);
+            $("#blason").attr("src",data.img);
             $(".c_champs").removeClass("choiced");
             $(this).addClass("choiced");
             $("input[name=couleur_champs]").val($(this).attr("data-id"));
@@ -96,7 +96,7 @@ $("body").on("click",".c_meuble", function(){
         },
         success: function(data){
             $("#desc_blason").html(data.description);
-            $("#blason").attr("src",data.img.encoded);
+            $("#blason").attr("src",data.img);
             $(".c_meuble").removeClass("choiced");
             $(this).addClass("choiced");
             $("input[name=couleur_meuble]").val($(this).attr("data-id"));
@@ -138,7 +138,7 @@ $("body").on("click",".c_att", function(){
         },
         success: function(data){
             $("#desc_blason").html(data.description);
-            $("#blason").attr("src",data.img.encoded);
+            $("#blason").attr("src",data.img);
             $("input[name=couleur_meuble]").val(data.couleur_meuble);
             $(".c_meuble").removeClass("choiced");
             $(".c_meuble[data-id="+data.couleur_meuble+"]").addClass("choiced");

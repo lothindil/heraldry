@@ -4,7 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Intervention\Image\ImageManagerStatic as Image;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 
 class Blason extends Model
 {
@@ -14,16 +15,21 @@ class Blason extends Model
         'image',
         'description'
     ];
+    private function IM()
+    {
+        return $manager = ImageManager::withDriver(Driver::class);
+    }
 
     public function generate_image(Couleur $couleur_champs, ?Meuble $meuble, ?Couleur $couleur_meuble, ?Array $attributs)
     {
-        $img = Image::make(public_path().'/images/champs/plein.png');
+        $manager=self::IM();
+        $img = $manager->read(public_path().'/images/champs/plein.png');
         $img->colorize($couleur_champs->red_for_colo,$couleur_champs->green_for_colo,$couleur_champs->blue_for_colo, );
-        $img->insert(public_path().'/images/champs/plein-c.png');
+        $img->place(public_path().'/images/champs/plein-c.png');
 
         if($meuble!=null)
         {
-            $img_meuble=Image::make(public_path().'/images/meubles/'.$meuble->fichier.'.png');
+            $img_meuble=$manager->read(public_path().'/images/meubles/'.$meuble->fichier.'.png');
             $img_meuble->colorize($couleur_meuble->red_for_colo,$couleur_meuble->green_for_colo,$couleur_meuble->blue_for_colo);
             
             if($attributs!=null)
@@ -33,23 +39,23 @@ class Blason extends Model
                     $attribut = $ajout['attribut'];
                    // dd($attribut);
                     $c = $ajout['couleur'];
-                        $img_att=Image::make(public_path().'/images/meubles/'.$meuble->fichier.'-'.$attribut->fichier.'.png');
+                        $img_att=$manager->read(public_path().'/images/meubles/'.$meuble->fichier.'-'.$attribut->fichier.'.png');
                         $img_att->colorize($c->red_for_colo,$c->green_for_colo,$c->blue_for_colo);
-                        $img_meuble->insert($img_att);
+                        $img_meuble->place($img_att);
                 }
             }
 
             $cadre=$meuble->cadre($couleur_meuble);
             $vieux=$meuble->vieillissement($couleur_champs);
 
-            $img_meuble->insert($cadre);
+            $img_meuble->place($cadre);
             
-            $img->insert($img_meuble);
-            $img->insert($vieux);
+            $img->place($img_meuble);
+            $img->place($vieux);
 
         }
-        //$img=$img->resize(512,512);
-        $this->image=$img->encode('data-url');
+        $img=$img->resize(512,512);
+        $this->image=$img->toPng()->toDataUri();
         return $this->image;
     }
 

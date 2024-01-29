@@ -5,7 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 
-use Intervention\Image\ImageManagerStatic as Image;
+use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\ImageManager;
 use App\Models\Couleur;
 
 class Meuble extends Model
@@ -20,10 +21,14 @@ class Meuble extends Model
     {
         return $this->hasMany(Attribut::class);
     }
-
+    private function IM()
+    {
+        return new ImageManager(new Driver());
+    }
    public function cadre(Couleur $couleur)
     {
-        $cadre=Image::make(public_path().'/images/meubles/'.$this->fichier.'-c.png');
+        $manager=self::IM();
+        $cadre=$manager->read(public_path().'/images/meubles/'.$this->fichier.'-c.png');
         if($couleur->hexadecimal=="#020202")
         {
             $cadre->colorize(20,20,20);
@@ -32,7 +37,8 @@ class Meuble extends Model
     }
     public function vieillissement(Couleur $couleur)
     {
-        $vieux=Image::make(public_path().'/images/champs/vieux.png');
+        $manager=self::IM();
+        $vieux=$manager->read(public_path().'/images/champs/vieux.png');
         if($couleur->hexadecimal=="#020202")
         {
             $vieux->colorize(10,10,10);
