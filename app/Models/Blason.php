@@ -20,7 +20,7 @@ class Blason extends Model
         return $manager = ImageManager::withDriver(Driver::class);
     }
 
-    public function generate_image(Couleur $couleur_champs, ?String $champs_secondaire, ?Couleur $couleur_champs2,
+    public function generate_image(Couleur $couleur_champs, ?Champs $champs_secondaire, ?Couleur $couleur_champs2,
             ?Meuble $meuble, ?Couleur $couleur_meuble,?Array $attributs)
     {
         $manager=self::IM();
@@ -30,7 +30,7 @@ class Blason extends Model
 
         if($champs_secondaire != null)
         {
-            $img_chp = $manager->read(public_path().'/images/champs/chp-'.$champs_secondaire.'.png');
+            $img_chp = $manager->read(public_path().'/images/champs/chp-'.$champs_secondaire->fichier.'.png');
             $img_chp->colorize($couleur_champs2->red_for_colo,$couleur_champs2->green_for_colo,$couleur_champs2->blue_for_colo);
             $img->place($img_chp);
         }
@@ -68,7 +68,7 @@ class Blason extends Model
         return $this->image;
     }
 
-    public function descriptif(Couleur $couleur_champs, ?String $champs_secondaire, ?Couleur $couleur_champs2,
+    public function descriptif(Couleur $couleur_champs, ?Champs $champs_secondaire, ?Couleur $couleur_champs2,
              ?Meuble $meuble, ?Couleur $couleur_meuble, ?Array $attributs)
     {
         $retour="";
@@ -79,7 +79,7 @@ class Blason extends Model
         }
         else
         {
-            $retour.=ucfirst($champs_secondaire)." ";
+            $retour.=ucfirst($champs_secondaire->nom)." ";
             $retour.= $this->start_by_voyelle($couleur_champs->nom)?"d'":'de ';
             $retour.=$couleur_champs->nom." et ";
             $retour.= $this->start_by_voyelle($couleur_champs2->nom)?"d'":'de ';

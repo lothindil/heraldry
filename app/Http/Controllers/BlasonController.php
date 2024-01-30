@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Blason;
 use App\Models\Couleur;
 use App\Models\Meuble;
+use App\Models\Champs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -28,7 +29,7 @@ class BlasonController extends Controller
         $couleur_champs=$couleurs->random();
         if(mt_rand(0,1)==1)
         {
-            $champs_secondaire="parti";
+            $champs_secondaire=Champs::all()->random();
             $couleur_champs2=$couleurs->random();
         }
 
@@ -36,7 +37,11 @@ class BlasonController extends Controller
         {
             $aff_meuble=true;
             $meuble_objet=$meubles->random();
-            $couleur_meuble=$couleurs->where('type','<>',$couleur_champs->type)->random();
+            $couleur_meuble=$couleurs->where('type','<>',$couleur_champs->type);
+            if($champs_secondaire!=null){
+                $couleur_meuble=$couleur_meuble->where('id','<>',$couleur_champs2->id);
+            }
+            $couleur_meuble=$couleur_meuble->random();
             $attributs=Array();
             //si y a des attributs, aléatoire pour savoir si on en colore
             if(mt_rand(0,9)<5&&$meuble_objet->attributs->count()!=0) 
